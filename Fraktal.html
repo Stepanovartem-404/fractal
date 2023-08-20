@@ -2,15 +2,17 @@
 <html>
 <head>
 <style>
+  /* Styling for the page */
   body {
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #8ec5d7;
   }
 
+  /* Styling for the canvas */
   canvas {
     border: 1px solid black;
   }
@@ -18,12 +20,15 @@
 </head>
 <body>
 
+<!-- Canvas element to draw the fractal -->
 <canvas id="fractalCanvas" width="600" height="600"></canvas>
 
 <script>
+// Getting the canvas element and its rendering context
 const canvas = document.getElementById('fractalCanvas');
 const ctx = canvas.getContext('2d');
 
+// Function to draw a segment of the Koch line
 function drawKochLine(x1, y1, x2, y2, depth) {
   if (depth === 0) {
     ctx.moveTo(x1, y1);
@@ -45,6 +50,7 @@ function drawKochLine(x1, y1, x2, y2, depth) {
   }
 }
 
+// Function to draw the Koch snowflake
 function drawKochSnowflake(x, y, size, depth) {
   const height = size * Math.sqrt(3) / 2;
   const x1 = x - size / 2;
@@ -57,14 +63,21 @@ function drawKochSnowflake(x, y, size, depth) {
   drawKochLine(x2, y2, x, y - 2 * height / 3, depth);
   drawKochLine(x, y - 2 * height / 3, x1, y1, depth);
   ctx.closePath();
-  ctx.stroke();
+
+  // Draw the fill by changing line styles
+  ctx.strokeStyle = '#ffffff'; // Set line color to white
+  ctx.lineWidth = 2; // Set line width to fill the shape
+  ctx.stroke(); // Draw the path using strokes
 }
 
+// Calculate the center of the canvas
 const centerX = canvas.width / 2;
 const centerY = canvas.height / 2;
-const initialSize = 400;
-const initialDepth = 5;
+// Set initial size and depth of the fractal
+const initialSize = 500;
+const initialDepth = 7;
 
+// Draw the Koch snowflake at the center of the canvas
 drawKochSnowflake(centerX, centerY, initialSize, initialDepth);
 </script>
 
